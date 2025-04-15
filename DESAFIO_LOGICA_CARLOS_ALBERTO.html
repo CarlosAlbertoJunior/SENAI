@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+
+    </style>
+    <script>
+      function pularLinha() {
+        document.write("<br><br>");
+      }
+
+      function mostrarMensagem() {
+        document.write("CALCULO DE COMBUSTIVEL");
+        pularLinha();
+      }
+
+      mostrarMensagem();
+
+      let distanciaKm = parseFloat(
+        prompt(
+          "Qual a distância percorrida da sua casa até seu trabalho (em Km)?"
+        )
+      );
+      let consumo = parseFloat(
+        prompt("Qual o consumo médio do seu veiculo (em KM/L)?")
+      );
+
+      let consumoNecessario = distanciaKm / consumo;
+
+      document.write(`O Consumo necessario é ${consumoNecessario}/L`);
+
+      pularLinha();
+
+      let qntPostos = parseInt(prompt("Em quantos postos você pesquisou?"));
+
+      let menorValor = Infinity;
+      let somaTotalValores = 0;
+
+      for (let i = 0; i < qntPostos; i++) {
+        let valorInformado = parseFloat(
+          prompt(`Digite o valor encontrado (em R$) no posto ${i + 1}:`)
+        );
+
+        while (Number.isNaN(valorInformado) || valorInformado <= 0) {
+          valorInformado = parseFloat(
+            prompt(`Valor Inválido, por favor insira novamente:`)
+          );
+        }
+        // somaTotalValores = somaTotalValores + valorInformado
+        somaTotalValores += valorInformado;
+
+        if (valorInformado < menorValor) {
+          menorValor = valorInformado;
+        }
+      }
+
+      document.write(`O menor valor pesquisado é R$ ${menorValor}`);
+      pularLinha();
+
+      let media = somaTotalValores / qntPostos;
+
+      document.write(`A média dos valores pesquisados é R$ ${media}`);
+
+      pularLinha();
+
+      let gastoDiario = parseFloat(2 * (consumoNecessario * menorValor));
+
+      document.write(`O gasto diário (ida e volta) é R$ ${gastoDiario}`);
+    </script>
+  </body>
+</html>
