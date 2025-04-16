@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cálculo de Combustível</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      color: #333;
+    }
+    #resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0052a3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Simulador de Gasto com Combustível</h1>
+  <button onclick="calcularCombustivel()">Iniciar Cálculo</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    function calcularCombustivel() {
+      let resultado = document.getElementById("resultado");
+      resultado.innerHTML = "";
+
+      let distancia = parseFloat(prompt("Qual a distância percorrida da sua casa até seu trabalho (em km)?"));
+      if (isNaN(distancia) || distancia <= 0) return alert("Distância inválida!");
+
+      let consumo = parseFloat(prompt("Qual o consumo médio do seu veículo (em km/L)?"));
+      if (isNaN(consumo) || consumo <= 0) return alert("Consumo inválido!");
+
+      let litrosNecessarios = distancia / consumo;
+      resultado.innerHTML += `<p>🔧 O consumo necessário é <strong>${litrosNecessarios.toFixed(2)}</strong> litros</p>`;
+
+      let qtdPostos = parseInt(prompt("Quantos postos de combustíveis você pesquisou?"));
+      if (isNaN(qtdPostos) || qtdPostos <= 0) return alert("Quantidade inválida!");
+
+      let somaCombustivel = 0;
+      let menorValor = null;
+
+      for (let i = 1; i <= qtdPostos; i++) {
+        let valor = parseFloat(prompt(`Digite o valor do combustível no posto ${i}:`));
+        if (isNaN(valor) || valor <= 0) {
+          alert("Valor inválido!");
+          i--; // refaz esse passo
+          continue;
+        }
+
+        somaCombustivel += valor;
+        if (menorValor === null || valor < menorValor) {
+          menorValor = valor;
+        }
+      }
+
+      let media = somaCombustivel / qtdPostos;
+      resultado.innerHTML += `<p>⛽ A média dos preços é <strong>R$ ${media.toFixed(2)}</strong></p>`;
+      resultado.innerHTML += `<p>💰 O menor valor pesquisado foi <strong>R$ ${menorValor.toFixed(2)}</strong></p>`;
+
+      let gastoDiario = 2 * litrosNecessarios * menorValor;
+      resultado.innerHTML += `<p>🧾 O gasto diário (ida e volta) será de <strong>R$ ${gastoDiario.toFixed(2)}</strong></p>`;
+    }
+  </script>
+</body>
+</html>
