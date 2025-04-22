@@ -4,73 +4,130 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-  </head>
-  <body>
     <style>
+      body {
+        margin-top: 10%;
+        background-color: rgb(156, 154, 160);
+        text-align: center;
 
+        background-image: url("https://live.dealer-asset.co/images/br1001/product/file/ford-brasil-nova-geracao-ranger-limited-laranja-jalapao-mi.png?s=400");
+      }
+
+      #mostrarMensagem {
+        color: aliceblue;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .titulo {
+        width: 600px;
+        height: auto;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        background-color: rgb(5, 34, 199);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.733);
+      }
+      .titulo h1 {
+        color: aliceblue;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: rgb(5, 34, 199);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.733);
+        background-image: url("");
+      }
+      .resultado {
+        font-size: 18px;
+        color: lightyellow;
+        margin-top: 10px;
+      }
     </style>
-    <script>
-      function pularLinha() {
-        document.write("<br><br>");
-      }
+  </head>
 
-      function mostrarMensagem() {
-        document.write("CALCULO DE COMBUSTIVEL");
-        pularLinha();
-      }
+  <body>
+    <div class="titulo">
+      <h1>DESAFIO SPRINT</h1>
+    </div>
+    <div class="container">
+      <script>
+        function pularLinha() {
+          document.write("<br><br>");
+        }
 
-      mostrarMensagem();
+        function mostrarMensagem() {
+          document.write(
+            `<div class="resultado"> <h1>CALCULO DE COMBUSTIVEL</h1>`
+          );
+          pularLinha();
+        }
 
-      let distanciaKm = parseFloat(
-        prompt(
-          "Qual a distância percorrida da sua casa até seu trabalho (em Km)?"
-        )
-      );
-      let consumo = parseFloat(
-        prompt("Qual o consumo médio do seu veiculo (em KM/L)?")
-      );
+        mostrarMensagem();
 
-      let consumoNecessario = distanciaKm / consumo;
-
-      document.write(`O Consumo necessario é ${consumoNecessario}/L`);
-
-      pularLinha();
-
-      let qntPostos = parseInt(prompt("Em quantos postos você pesquisou?"));
-
-      let menorValor = Infinity;
-      let somaTotalValores = 0;
-
-      for (let i = 0; i < qntPostos; i++) {
-        let valorInformado = parseFloat(
-          prompt(`Digite o valor encontrado (em R$) no posto ${i + 1}:`)
+        let distanciaKm = parseFloat(
+          prompt(
+            "Qual a distância percorrida da sua casa até seu trabalho (em Km)?"
+          )
+        );
+        let consumo = parseFloat(
+          prompt("Qual o consumo médio do seu veiculo (em KM/L)?")
         );
 
-        while (Number.isNaN(valorInformado) || valorInformado <= 0) {
-          valorInformado = parseFloat(
-            prompt(`Valor Inválido, por favor insira novamente:`)
+        let consumoNecessario = distanciaKm / consumo;
+
+        document.write(
+          `<div class="resultado">O Consumo necessario é ${consumoNecessario}L`
+        );
+
+        pularLinha();
+
+        let qntPostos = parseInt(prompt("Em quantos postos você pesquisou?"));
+
+        let menorValor = Infinity;
+        let somaTotalValores = 0;
+
+        for (let i = 0; i < qntPostos; i++) {
+          let valorInformado = parseFloat(
+            prompt(`Digite o valor encontrado (em R$) no posto ${i + 1}:`)
           );
+
+          while (Number.isNaN(valorInformado) || valorInformado <= 0) {
+            valorInformado = parseFloat(
+              prompt(`Valor Inválido, por favor insira novamente:`)
+            );
+          }
+          // somaTotalValores = somaTotalValores + valorInformado
+          somaTotalValores += valorInformado;
+
+          if (valorInformado < menorValor) {
+            menorValor = valorInformado;
+          }
         }
-        // somaTotalValores = somaTotalValores + valorInformado
-        somaTotalValores += valorInformado;
 
-        if (valorInformado < menorValor) {
-          menorValor = valorInformado;
-        }
-      }
+        document.write(
+          `<div class="resultado">O menor valor pesquisado é R$ ${menorValor}`
+        );
+        pularLinha();
 
-      document.write(`O menor valor pesquisado é R$ ${menorValor}`);
-      pularLinha();
+        let media = somaTotalValores / qntPostos;
 
-      let media = somaTotalValores / qntPostos;
+        document.write(
+          `<div class="resultado">A média dos valores pesquisados é R$ ${media}`
+        );
 
-      document.write(`A média dos valores pesquisados é R$ ${media}`);
+        pularLinha();
 
-      pularLinha();
+        let gastoDiario = parseFloat(2 * (consumoNecessario * menorValor));
 
-      let gastoDiario = parseFloat(2 * (consumoNecessario * menorValor));
-
-      document.write(`O gasto diário (ida e volta) é R$ ${gastoDiario}`);
-    </script>
+        document.write(
+          `<div class="resultado">O gasto diário (ida e volta) é R$ ${gastoDiario}`
+        );
+      </script>
+    </div>
   </body>
 </html>
